@@ -41,33 +41,27 @@ func TestIsItAPrime(t *testing.T) {
 		2147483649: false,
 	}
 
-	t.Run("simple test", func(t *testing.T) {
-		for prime, want := range simpleTestTable {
-			got := isItAPrime(prime)
+	listOfTestTables := map[string]*map[int]bool{
+		"simple test": &simpleTestTable,
+		"medium test": &mediumTestTable,
+		"hard test":   &hardTestTabe,
+	}
 
-			if got != want {
-				t.Errorf("for a number %d got %v want %v", prime, got, want)
-			}
+	for test, testTable := range listOfTestTables {
+		t.Run(test, func(t *testing.T) {
+			assertTestTableOfPrimes(t, *testTable)
+		})
+	}
+
+}
+
+func assertTestTableOfPrimes(t testing.TB, in map[int]bool) {
+	t.Helper()
+	for prime, want := range in {
+		got := isItAPrime(prime)
+
+		if got != want {
+			t.Errorf("for a number %d got %v want %v", prime, got, want)
 		}
-	})
-
-	t.Run("medium test", func(t *testing.T) {
-		for prime, want := range mediumTestTable {
-			got := isItAPrime(prime)
-
-			if got != want {
-				t.Errorf("for a number %d got %v want %v", prime, got, want)
-			}
-		}
-	})
-
-	t.Run("hard test", func(t *testing.T) {
-		for prime, want := range hardTestTabe {
-			got := isItAPrime(prime)
-
-			if got != want {
-				t.Errorf("for a number %d got %v want %v", prime, got, want)
-			}
-		}
-	})
+	}
 }
