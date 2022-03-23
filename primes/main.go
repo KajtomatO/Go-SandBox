@@ -19,10 +19,11 @@ func worker(numberToCheck <-chan int, foundPrimes chan<- int, finishedSignal cha
 	finishedSignal <- true
 }
 
-func printer(foundPrimes <-chan int) {
+func printer(foundPrimes <-chan int, finishedSignalPrinter chan<- bool) {
 	for prime := range foundPrimes {
-		fmt.Printf("Found a Prime: %d", prime)
+		fmt.Printf("Found a Prime: %d \n", prime)
 	}
+	finishedSignalPrinter <- true
 }
 
 func main() {
@@ -39,14 +40,15 @@ func main() {
 	numberToCheck := make(chan int, numberOfWorkers)
 	foundPrimes := make(chan int, numberOfWorkers*4)
 	finishedSignal := make(chan bool, numberOfWorkers)
+	finishedSignalPrinter := make(chan bool, 1)
 
 	for i := 0; i < numberOfWorkers; i++ {
 		go worker(numberToCheck, foundPrimes, finishedSignal)
 	}
 
-	go printer(foundPrimes)
+	go printer(foundPrimes, finishedSignalPrinter)
 
-	for num := rangeStart; num < rangeStop; num++ {
+	for num := rangeStart; num <= rangeStop; num++ {
 		numberToCheck <- num
 	}
 	//Signal to end the work for
@@ -58,5 +60,6 @@ func main() {
 	//Signal to close the printer
 	close(foundPrimes)
 
-	//TODO: Wait for the printer to be closed
+	<-finishedSignalPrinter
+	fmt.Println("Done")
 }
