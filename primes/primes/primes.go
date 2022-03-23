@@ -3,7 +3,7 @@ package primes
 type listOfNumbers []int
 type listOfBools []bool
 
-func isItAPrime(in int) bool {
+func IsItAPrime(in int) bool {
 
 	if in <= 1 {
 		return false

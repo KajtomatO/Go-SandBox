@@ -57,7 +57,7 @@ func TestIsItAPrime(t *testing.T) {
 func assertTestTableOfPrimes(t testing.TB, in map[int]bool) {
 	t.Helper()
 	for prime, want := range in {
-		got := isItAPrime(prime)
+		got := IsItAPrime(prime)
 
 		if got != want {
 			t.Errorf("for a number %d got %v want %v", prime, got, want)
