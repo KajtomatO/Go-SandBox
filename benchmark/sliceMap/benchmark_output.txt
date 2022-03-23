@@ -1,0 +1,11 @@
+goos: linux
+goarch: amd64
+pkg: sliceMap
+BenchmarkSliceOperations_Array-24                         	 2756426	       432 ns/op
+BenchmarkSliceOperations_SliceAppend-24                   	  450186	      2595 ns/op
+BenchmarkSliceOperations_SliceAppendPredefinedLimit-24    	 3030694	       401 ns/op
+BenchmarkSliceOperations_SliceFixedSize-24                	 2553560	       471 ns/op
+BenchmarkSliceOperations_Map-24                           	   24750	     47754 ns/op
+BenchmarkSliceOperations_MapPedefined-24                  	   52387	     22933 ns/op
+PASS
+ok  	sliceMap	10.146s
