@@ -38,7 +38,6 @@ func TestIsItAPrime(t *testing.T) {
 	hardTestTabe := map[int]bool{
 		2147483647: true,
 		2147483648: false,
-		2147483649: false,
 	}
 
 	listOfTestTables := map[string]*map[int]bool{
