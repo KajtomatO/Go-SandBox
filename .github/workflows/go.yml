@@ -22,4 +22,4 @@ jobs:
       run: cd primes && go build -v 
 
     - name: Test
-      run: cd primes/primes && go test -v
+      run: cd primes/primes && go test -v -run TestIsItAPrimeSimple

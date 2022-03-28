@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestIsItAPrime(t *testing.T) {
+func TestIsItAPrimeSimple(t *testing.T) {
 	simpleTestTable := map[int]bool{
 		0: false,
 		1: false,
@@ -35,15 +35,28 @@ func TestIsItAPrime(t *testing.T) {
 		7919: true,
 	}
 
+	listOfTestTables := map[string]*map[int]bool{
+		"simple test": &simpleTestTable,
+		"medium test": &mediumTestTable,
+	}
+
+	for test, testTable := range listOfTestTables {
+		t.Run(test, func(t *testing.T) {
+			assertTestTableOfPrimes(t, *testTable)
+		})
+	}
+
+}
+
+func TestIsItAPrimeHard(t *testing.T) {
+
 	hardTestTabe := map[int]bool{
 		2147483647: true,
 		2147483648: false,
 	}
 
 	listOfTestTables := map[string]*map[int]bool{
-		"simple test": &simpleTestTable,
-		"medium test": &mediumTestTable,
-		"hard test":   &hardTestTabe,
+		"hard test": &hardTestTabe,
 	}
 
 	for test, testTable := range listOfTestTables {
